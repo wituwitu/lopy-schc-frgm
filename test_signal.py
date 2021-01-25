@@ -1,6 +1,5 @@
 from network import Sigfox
 import socket
-import binascii
 import time
 
 
