@@ -27,6 +27,6 @@ for i in range(n):
     print("Sending...")
     s.send(payload)
     print("Sent " + payload.decode() + ".")
-    time.sleep(30)
+    time.sleep(20)
 
 print("Done.")
