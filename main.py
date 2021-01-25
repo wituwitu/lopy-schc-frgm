@@ -170,7 +170,6 @@ with open("example_300.txt", "rb") as data:
 # Initialize variables.
 total_size = len(message)
 current_size = 0
-percent = round(0, 2)
 i = 0
 current_window = 0
 header_bytes = 1 if total_size <= 300 else 2

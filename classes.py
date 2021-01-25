@@ -1,5 +1,5 @@
 from math import floor, ceil
-
+import ubinascii
 from functions import bitstring_to_bytes, is_monochar, zfill
 
 
@@ -203,7 +203,7 @@ class Fragment:
         self.payload = payload
         self.bytes = self.header.bytes + self.payload
         self.string = self.bytes.decode()
-        self.hex = self.bytes.hex()
+        self.hex = ubinascii.hexlify(self.bytes).decode()
 
     def is_all_1(self):
         fcn = self.header.FCN
