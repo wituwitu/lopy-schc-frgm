@@ -199,6 +199,8 @@ if len(fragment_list) > (2 ** profile.M) * window_size:
           "selected.")
     exit(1)
 
+print("Starting")
+
 # Start sending fragments.
 while i < len(fragment_list):
     # A fragment has the format "fragment = [header, payload]".
