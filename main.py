@@ -1,6 +1,7 @@
 from network import Sigfox
 import socket
 import ubinascii
+from time import sleep
 
 from classes import *
 
@@ -200,6 +201,8 @@ if len(fragment_list) > (2 ** profile.M) * window_size:
 
 print("Starting")
 
+time_between_fragments = 20
+
 # Start sending fragments.
 while i < len(fragment_list):
     # A fragment has the format "fragment = [header, payload]".
@@ -215,3 +218,5 @@ while i < len(fragment_list):
     # Send the data.
     print("Sending...")
     post(fragment)
+
+    sleep(time_between_fragments)
