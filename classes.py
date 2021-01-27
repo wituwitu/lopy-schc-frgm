@@ -1,6 +1,7 @@
 from math import floor, ceil
 import ubinascii
 from functions import bitstring_to_bytes, is_monochar, zfill
+from machine import Timer
 
 
 class Protocol:
@@ -33,10 +34,10 @@ class SigfoxProfile(Protocol):
         self.NAME = "SIGFOX"
         self.direction = direction
         self.mode = mode
-        self.RETRANSMISSION_TIMER_VALUE = 45  # (45) enough to let a downlink message to be sent if needed
-        self.INACTIVITY_TIMER_VALUE = 60  # (60) for demo purposes
+        self.RETRANSMISSION_TIMER_VALUE = 45.0  # (45) enough to let a downlink message to be sent if needed
+        self.INACTIVITY_TIMER_VALUE = 60.0  # (60) for demo purposes
 
-        self.SIGFOX_DL_TIMEOUT = 20  # This is to be tested
+        self.SIGFOX_DL_TIMEOUT = 20.0  # This is to be tested
 
         self.L2_WORD_SIZE = 8  # The L2 word size used by Sigfox is 1 byte
 

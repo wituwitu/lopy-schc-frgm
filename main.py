@@ -2,6 +2,7 @@ from network import Sigfox
 import socket
 import ubinascii
 from time import sleep
+from sys import exit
 
 from classes import *
 
@@ -24,7 +25,7 @@ def post(fragment_sent, retransmit=False):
 
     else:
         s.setsockopt(socket.SOL_SIGFOX, socket.SO_RX, False)
-        s.settimeout(40)
+        s.settimeout(40.0)
 
     data = fragment_sent.bytes
 
@@ -47,7 +48,8 @@ def post(fragment_sent, retransmit=False):
         if response is None:
             if not retransmit:
                 i += 1
-                return
+            sleep(time_between_fragments)
+            return
 
         else:
             print("Response: {}. Ressetting attempts counter to 0.".format(response))
@@ -136,7 +138,7 @@ def post(fragment_sent, retransmit=False):
                     current_window += 1
 
     # If the timer expires
-    except TimeoutError:
+    except (socket.timeout, OSError):
         # If an ACK was expected
         if fragment_sent.is_all_1():
             # If the attempts counter is strictly less than MAX_ACK_REQUESTS, try again
@@ -190,7 +192,6 @@ fragment = None
 # Initialize socket
 sigfox = Sigfox(mode=Sigfox.SIGFOX, rcz=Sigfox.RCZ4)
 s = socket.socket(socket.AF_SIGFOX, socket.SOCK_RAW)
-s.setblocking(True)
 
 if len(fragment_list) > (2 ** profile.M) * window_size:
     print(len(fragment_list))
@@ -218,5 +219,3 @@ while i < len(fragment_list):
     # Send the data.
     print("Sending...")
     post(fragment)
-
-    sleep(time_between_fragments)
